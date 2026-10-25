@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2c3a2e">
+  <title>Papercal</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <div class="brand">Papercal</div>
+        <h1 id="pageTitle">Day</h1>
+      </div>
+      <button class="icon-btn" onclick="openDate(todayISO())" title="Jump to today">•</button>
+    </header>
+    <div id="installBanner" class="install-banner">
+      <button onclick="dismissInstall()">✕</button>
+      iPhone: Safari → Share → Add to Home Screen. That keeps logging one tap away.
+    </div>
+    <main id="view" class="view"></main>
+    <nav class="nav">
+      <button data-view="today" class="active" onclick="setView('today')"><b>○</b>Day</button>
+      <button data-view="week" onclick="setView('week')"><b>☰</b>Week</button>
+      <button data-view="month" onclick="setView('month')"><b>▦</b>Month</button>
+      <button data-view="trackers" onclick="setView('trackers')"><b>+</b>Trackers</button>
+    </nav>
+  </div>
+  <button class="icon-btn" style="position:fixed;right:14px;bottom:calc(68px + env(safe-area-inset-bottom));z-index:6" onclick="setView('more')" title="Export">⇪</button>
+  <div class="sheet-bg" id="sheetBg"><div class="sheet"></div></div>
+  <script src="./app.js"></script>
+  <script>
+    function todayISO(d) {
+      d = d || new Date();
+      const z = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+      return z.toISOString().slice(0, 10);
+    }
+  </script>
+</body>
+</html>
